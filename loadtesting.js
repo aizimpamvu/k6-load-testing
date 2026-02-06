@@ -3,9 +3,18 @@ import { check } from 'k6';
 import http from 'k6/http';
 
 export const options = {
-  vus: 5, // Number of virtual users
-  duration: '10s', // Duration of the test
+  stages: [
+    { duration: '10s', target: 10 }, // Ramp up to 10 users over 10 seconds
+    { duration: '20s', target: 10 },  // Stay at 10 users for 20 seconds
+    { duration: '10s', target: 0 },   // Ramp down to 0 users over 10 seconds
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
+    http_req_failed: ['rate<0.01'], // Less than 1% of requests should fail
+  },
 };
+
+
 export default function () {
   const res=http.get('https://test.k6.io');
   check(res, {
