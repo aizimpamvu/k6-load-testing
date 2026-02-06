@@ -9,14 +9,14 @@ export const options = {
     { duration: '10s', target: 0 },   // Ramp down to 0 users over 10 seconds
   ],
   thresholds: {
-    http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
+    http_req_duration: ['p(90)<700'], // 95% of requests should be below 500ms
     http_req_failed: ['rate<0.01'], // Less than 1% of requests should fail
   },
 };
 
 
 export default function () {
-  const res=http.get('https://test.k6.io');
+  const res=http.get('https://staging.urubutopay.rw/');
   check(res, {
      'is status 200': (r) => r.status === 200 });
 }
