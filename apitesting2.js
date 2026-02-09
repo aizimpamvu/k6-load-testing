@@ -10,8 +10,8 @@ const users = new SharedArray('users', () => [
 
 export const options = {
     stages: [
-        { duration: '10s', target: 10 },
-        { duration: '5s', target: 10 },
+        { duration: '20s', target: 100 },
+        { duration: '20s', target: 200 },
         { duration: '5s', target: 0 },
     ],
 };
@@ -20,7 +20,7 @@ export default function () {
     const user = users[Math.floor(Math.random() * users.length)];
 
     const res = http.post(
-        __ENV.URL,
+        'https://reqres.in/api/users',
         JSON.stringify(user),
         { headers: { 'Content-Type': 'application/json' } }
     );
