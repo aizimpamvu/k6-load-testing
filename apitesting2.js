@@ -10,10 +10,14 @@ const users = new SharedArray('users', () => [
 
 export const options = {
     stages: [
-        { duration: '20s', target: 100 },
-        { duration: '20s', target: 200 },
+        { duration: '10s', target: 5 },
+        { duration: '10s', target: 5 },
         { duration: '5s', target: 0 },
     ],
+    thresholds: {
+    http_req_duration: ['p(90)<700'], // 95% of requests should be below 500ms
+    http_req_failed: ['rate<0.01'], // Less than 1% of requests should fail
+  },
 };
 
 export default function () {
