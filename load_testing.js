@@ -1,4 +1,5 @@
-
+// This is a basic k6 script for load testing a web application.
+// It simulates a expected number of virtual users accessing the application over a specified duration.
 import { check } from 'k6';
 import http from 'k6/http';
 
